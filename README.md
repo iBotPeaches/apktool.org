@@ -1,4 +1,5 @@
 # Apktool Website
+
 _This is the [https://apktool.org](https://apktool.org) website written in [Docusaurus](https://docusaurus.io). The tool is at the [Apktool](https://github.com/iBotPeaches/Apktool/tree/docs) repository._
 
 ## Installation
