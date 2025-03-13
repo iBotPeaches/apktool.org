@@ -1,8 +1,6 @@
-# Apktool Documentation
+# Apktool Website
 
-**This branch is for the [https://apktool.org](https://apktool.org) website. The tool is on the [Apktool master branch](https://github.com/iBotPeaches/Apktool/tree/docs).**
-
-> This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+_This is the [https://apktool.org](https://apktool.org) website written in [Docusaurus](https://docusaurus.io). The tool is at the [Apktool](https://github.com/iBotPeaches/Apktool/tree/docs) repository._
 
 ## Installation
 
