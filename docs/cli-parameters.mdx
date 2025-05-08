@@ -57,6 +57,14 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
   - You will have to fix them manually before building.
 
 ```
+-l, --lib <package>:<location>
+```
+
+- Use to specify a dynamic library location.
+  - ie. `--lib com.google.android.test.shared_library:/tmp/shared_library.apk`
+  - This can be called multiple times to add multiple libraries.
+
+```
 -m, --match-original
 ```
 
