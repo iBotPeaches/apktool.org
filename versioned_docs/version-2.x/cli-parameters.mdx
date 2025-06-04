@@ -1,0 +1,252 @@
+---
+title: CLI Parameters
+sidebar_position: 3
+---
+
+### Utility Options
+
+_Options used for utility commands (`apktool {options}`)_
+
+```
+-advance, --advanced
+```
+
+- Dumps out advanced usage output.
+
+```
+-version, --version
+```
+
+- Outputs the current software version. (Ex: 1.5.2)
+
+### Decoding Options
+
+_Options used for decoding commands (`apktool d file.apk {options}`)_
+
+```
+-api, --api-level <API>
+```
+
+- Sets the API-level used in the generated smali files.
+  - Defaults to `targetSdkVersion`
+
+```
+-b, --no-debug-info
+```
+
+- Prevents baksmali from writing out debug info. (`.local`, `.param`, `.line`, etc.).
+
+```
+-f, --force
+```
+
+- Forces the deletion of the destination directory.
+
+```
+--force-manifest
+```
+
+- Forces Apktool to decode `AndroidManifest.xml` regardless of your decoding options.
+
+```
+--keep-broken-res
+```
+
+- Use if an error was thrown and some resources were dropped and you want to decode them anyway.
+  - E.g. `Invalid config flags detected. Dropping resources`.
+  - You will have to fix them manually before building.
+
+```
+-l, --lib <package>:<location>
+```
+
+- Use to specify a dynamic library location.
+  - ie. `--lib com.google.android.test.shared_library:/tmp/shared_library.apk`
+  - This can be called multiple times to add multiple libraries.
+
+```
+-m, --match-original
+```
+
+- Matches the generated files as close as possible to the originals.
+  - Comes at the cost of possibly preventing re-build.
+
+```
+--no-assets
+```
+
+- Prevents decoding/copying unknown asset files.
+
+```
+--only-main-classes
+```
+
+- Only disassembles dex classes that are in the root of the application.
+
+```
+-p, --frame-path <DIR>
+```
+
+- Sets the folder framework files are stored/read from.
+
+```
+-r, --no-res
+```
+
+- Prevents decompiling resources.
+  - Keeps `resources.arsc` intact.
+
+```
+-resm,--resource-mode <mode>
+```
+
+- Sets the mode used when resolving resources.
+  - `remove` (default) - Removes resources that cannot be resolved.
+  - `dummy` - Adds a dummy resource for resources that cannot be resolved.
+  - `keep` - Keeps unresolved resources using `APKTOOL_MISSING_{resId}` nomenclature.
+
+```
+-s, --no-src
+```
+
+- Prevents disassembling dex files.
+  - Leaves the dex files untouched and moves them upon build.
+
+```
+-t, --frame-tag <TAG>
+```
+
+- Uses framework files tagged by `TAG`.
+
+### Building Options
+
+_Options used for building commands (`apktool b folder {options}`)_
+
+```
+-a, --aapt <FILE>
+```
+
+- Loads aapt/aapt2 binaries from the specified location.
+  - These are used instead of the internal version.
+
+```
+-api, --api-level <API>
+```
+
+- Sets the API-level of the smali files to build against.
+  - Defaults to `minSdkVersion`.
+
+```
+-c, --copy-original
+```
+
+- Copies the original `AndroidManifest.xml` and `META-INF`.
+
+```
+-d, --debug
+```
+
+- Adds `debuggable="true"` to `AndroidManifest.xml`.
+
+```
+-f, --force-all
+```
+
+- Overwrites existing files during build.
+  - Includes resources and sources.
+
+```
+-n, --net-sec-conf
+```
+
+- Adds a generic Network Security Configuration file in the apk.
+
+```
+-na, --no-apk
+```
+
+- Disables repacking of the built files into a new apk.
+
+```
+-nc, --no-crunch
+```
+
+- Disables crunching resource files during build.
+  - This prevents automatic bitmap optimization by aapt/aapt2.
+
+```
+-o, --output <FILE>
+```
+
+- Sets the name of the output apk.
+  - The Default is `dist/{apkname}.apk`.
+
+```
+-p, --frame-path <DIR>
+```
+
+- Sets the folder framework files are stored/read from.
+
+```
+--use-aapt1
+```
+
+- Use `aapt` instead of `aapt2`.
+  - `aapt2` is used by default in Apktool v2.9.0 and above.
+
+```
+--use-aapt2
+```
+
+- Use `aapt2` instead of `aapt`.
+  - `aapt` is used by default in Apktool v2.8.2 and below.
+
+### Empty Framework Directory Options
+
+_Options used for empty-framework-dir commands (`apktool empty-framework-dir {options}`)_
+
+```
+-f, --force
+```
+
+- Forces the deletion of the destination directory.
+
+```
+-p, --frame-path <DIR>
+```
+
+- Sets the folder framework files are stored/read from.
+
+### List Framework Directory Options
+
+_Options used for list-frameworks commands (`apktool list-frameworks {options}`)_
+
+```
+-p, --frame-path <DIR>
+```
+
+- Sets the folder framework files are stored/read from.
+
+### Common Options
+
+_Options that can be used with any command_
+
+```
+-j <NUM>, --jobs <NUM>
+```
+
+- Sets the number of threads to use when parallel operations are available.
+  - Defaults to the number of processors available, with a max of 8.
+
+```
+-v, --verbose
+```
+
+- Verbose output.
+  - Includes any log messages tagged with `FINE`.
+
+```
+-q, --quiet
+```
+
+- Quiet output.

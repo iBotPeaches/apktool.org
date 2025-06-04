@@ -4,7 +4,7 @@
 const {themes} = require('prism-react-renderer/dist/index');
 
 /** @type {import('@docusaurus/types').Config} */
-const config = {
+export default {
   title: 'Apktool',
   tagline: 'A tool for reverse engineering Android apk files',
   favicon: 'img/favicon.ico',
@@ -13,6 +13,10 @@ const config = {
   projectName: 'Apktool',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  future: {
+    v4: true,
+    experimental_faster: true,
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -31,7 +35,7 @@ const config = {
             from: '/build/',
           },
           {
-            to: '/docs/the-basics/intro',
+            to: '/wiki/the-basics/intro',
             from: '/documentation/',
           },
           {
@@ -43,32 +47,59 @@ const config = {
             from: '/changes/',
           },
           {
-            to: '/docs/meta/contributing',
+            to: '/wiki/meta/contributing',
             from: '/contribute/',
           },
+          {
+            to: '/wiki/in-depth/resource-modes',
+            from: '/docs/in-depth/resource-modes',
+          },
+          {
+            to: '/wiki/the-basics/intro',
+            from: '/docs/the-basics/intro',
+          },
+          {
+            to: '/wiki/meta/contributing',
+            from: '/docs/meta/contributing',
+          },
         ],
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'wiki',
+        path: 'wiki',
+        routeBasePath: 'wiki',
+        sidebarPath: undefined,
       },
     ],
   ],
   presets: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      '@docusaurus/preset-classic',
+      {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/iBotPeaches/Apktool/tree/docs/',
+          path: 'docs',
+          routeBasePath: 'docs',
+          sidebarPath: undefined,
+          versions: {
+            current: {
+              label: '3.x',
+              path: '3.x',
+            },
+          },
         },
         blog: {
           showReadingTime: false,
           postsPerPage: 2,
           blogSidebarCount: 'ALL',
-          editUrl: 'https://github.com/iBotPeaches/Apktool/tree/docs/',
+          onUntruncatedBlogPosts: 'ignore',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      },
     ],
   ],
   themeConfig:
@@ -87,9 +118,22 @@ const config = {
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Docs',
+            docsPluginId: 'default',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'defaultSidebar',
+            position: 'left',
+            label: 'Wiki',
+            docsPluginId: 'wiki',
           },
           {to: '/docs/install', label: 'Install', position: 'left'},
           {to: '/blog', label: 'Releases', position: 'left'},
+          {
+            type: 'docsVersionDropdown',
+            versions: ['current', '2.x'],
+            position: 'right',
+          },
           {
             href: 'https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.11.1.jar',
             label: 'Download 2.11.1',
@@ -109,12 +153,12 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'How to Install',
-                to: '/docs/install',
+                label: 'v3.x Documentation',
+                to: 'docs/3.x/cli-parameters',
               },
               {
-                label: 'How to Build',
-                to: 'docs/build',
+                label: 'v2.x Documentation',
+                to: 'docs/cli-parameters',
               },
             ],
           },
@@ -171,5 +215,3 @@ const config = {
       },
     }),
 };
-
-module.exports = config;

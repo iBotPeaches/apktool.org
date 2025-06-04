@@ -1,0 +1,45 @@
+---
+title: Introduction
+sidebar_position: 1
+---
+
+First lets take a lesson into apk files. Apks are nothing more than a zip file containing resources and assembled java code.
+If you were to simply unzip an apk like so, you would be left with files such as `classes.dex` and `resources.arsc`.
+
+```shell
+$ unzip testapp.apk
+Archive:  testapp.apk
+inflating: AndroidManifest.xml
+inflating: classes.dex
+extracting: res/drawable-hdpi/ic_launcher.png
+inflating: res/xml/literals.xml
+inflating: res/xml/references.xml
+extracting: resources.arsc
+```
+
+However, at this point you have simply inflated compiled sources. If you tried to view <code>AndroidManifest.xml</code>. You'd be left viewing a malformed file.
+
+Obviously, editing or viewing a compiled file is next to impossible. That is where Apktool comes into play.
+
+```shell
+$ apktool d testapp.apk
+I: Using Apktool 2.0.0 on testapp.apk
+I: Loading resource table...
+I: Decoding AndroidManifest.xml with resources...
+I: Loading resource table from file: 1.apk
+I: Regular manifest package...
+I: Decoding file-resources...
+I: Decoding values */* XMLs...
+I: Baksmaling classes.dex...
+I: Copying assets and libs...
+```
+
+Viewing <code>AndroidManifest.xml</code> again results in something much more human readable
+
+```xml
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="https://schemas.android.com/apk/res/android" package="brut.apktool.testapp"
+          platformBuildVersionCode="21" platformBuildVersionName="APKTOOL" />
+```
+
+In addition to XMLs, resources such as 9 patch images, layouts, strings, and much more are correctly decoded to source form.
