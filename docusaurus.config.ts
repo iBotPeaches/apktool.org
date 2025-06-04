@@ -1,10 +1,8 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
+import {themes as prismThemes} from 'prism-react-renderer';
+import type {Config} from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
 
-const {themes} = require('prism-react-renderer/dist/index');
-
-/** @type {import('@docusaurus/types').Config} */
-export default {
+const config: Config = {
   title: 'Apktool',
   tagline: 'A tool for reverse engineering Android apk files',
   favicon: 'img/favicon.ico',
@@ -77,7 +75,7 @@ export default {
   ],
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       {
         docs: {
           path: 'docs',
@@ -99,12 +97,10 @@ export default {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      } satisfies Preset.Options,
     ],
   ],
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+  themeConfig: {
       image: 'img/social-card.png',
       navbar: {
         title: 'Apktool',
@@ -200,8 +196,8 @@ export default {
         copyright: `Built with Docusaurus.`,
       },
       prism: {
-        theme: themes.github,
-        darkTheme: themes.dracula,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
         additionalLanguages: ['java', 'smali', 'bash', 'javascript'],
       },
       algolia: {
@@ -213,5 +209,7 @@ export default {
         searchParameters: {},
         searchPagePath: 'search',
       },
-    }),
+    } satisfies Preset.ThemeConfig,
 };
+
+export default config;
