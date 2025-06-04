@@ -35,7 +35,7 @@ export default {
             from: '/build/',
           },
           {
-            to: '/docs/the-basics/intro',
+            to: '/wiki/the-basics/intro',
             from: '/documentation/',
           },
           {
@@ -47,8 +47,20 @@ export default {
             from: '/changes/',
           },
           {
-            to: '/docs/meta/contributing',
+            to: '/wiki/meta/contributing',
             from: '/contribute/',
+          },
+          {
+            to: '/wiki/in-depth/resource-modes',
+            from: '/docs/in-depth/resource-modes',
+          },
+          {
+            to: '/wiki/the-basics/intro',
+            from: '/docs/the-basics/intro',
+          },
+          {
+            to: '/wiki/meta/contributing',
+            from: '/docs/meta/contributing',
           },
         ],
       },
@@ -142,7 +154,7 @@ export default {
             items: [
               {
                 label: 'How to Install',
-                to: '/docs/install',
+                to: 'docs/install',
               },
               {
                 label: 'How to Build',
