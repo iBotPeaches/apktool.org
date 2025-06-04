@@ -153,12 +153,12 @@ export default {
             title: 'Docs',
             items: [
               {
-                label: 'How to Install',
-                to: 'docs/install',
+                label: 'v3.x Documentation',
+                to: 'docs/3.x/cli-parameters',
               },
               {
-                label: 'How to Build',
-                to: 'docs/build',
+                label: 'v2.x Documentation',
+                to: 'docs/cli-parameters',
               },
             ],
           },
