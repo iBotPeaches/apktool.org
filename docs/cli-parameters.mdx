@@ -8,13 +8,13 @@ sidebar_position: 3
 _Options used for utility commands (`apktool {options}`)_
 
 ```
--advance, --advanced
+h, help
 ```
 
-- Dumps out advanced usage output.
+- Dumps out all usage output.
 
 ```
--version, --version
+v|version
 ```
 
 - Outputs the current software version. (Ex: 1.5.2)
@@ -24,14 +24,7 @@ _Options used for utility commands (`apktool {options}`)_
 _Options used for decoding commands (`apktool d file.apk {options}`)_
 
 ```
--api, --api-level <API>
-```
-
-- Sets the API-level used in the generated smali files.
-  - Defaults to `targetSdkVersion`
-
-```
--b, --no-debug-info
+--no-debug-info
 ```
 
 - Prevents baksmali from writing out debug info. (`.local`, `.param`, `.line`, etc.).
@@ -65,7 +58,7 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
   - This can be called multiple times to add multiple libraries.
 
 ```
--m, --match-original
+--match-original
 ```
 
 - Matches the generated files as close as possible to the originals.
@@ -97,7 +90,7 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
   - Keeps `resources.arsc` intact.
 
 ```
--resm,--resource-mode <mode>
+--res-resolve-mode <mode>
 ```
 
 - Sets the mode used when resolving resources.
@@ -123,52 +116,45 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 _Options used for building commands (`apktool b folder {options}`)_
 
 ```
--a, --aapt <FILE>
+--aapt <FILE>
 ```
 
-- Loads aapt/aapt2 binaries from the specified location.
+- Loads aapt2 binaries from the specified location.
   - These are used instead of the internal version.
 
 ```
--api, --api-level <API>
-```
-
-- Sets the API-level of the smali files to build against.
-  - Defaults to `minSdkVersion`.
-
-```
--c, --copy-original
+--copy-original
 ```
 
 - Copies the original `AndroidManifest.xml` and `META-INF`.
 
 ```
--d, --debug
+--debuggable
 ```
 
 - Adds `debuggable="true"` to `AndroidManifest.xml`.
 
 ```
--f, --force-all
+-f, --force
 ```
 
 - Overwrites existing files during build.
   - Includes resources and sources.
 
 ```
--n, --net-sec-conf
+--net-sec-conf
 ```
 
 - Adds a generic Network Security Configuration file in the apk.
 
 ```
--na, --no-apk
+--no-apk
 ```
 
 - Disables repacking of the built files into a new apk.
 
 ```
--nc, --no-crunch
+---no-crunch
 ```
 
 - Disables crunching resource files during build.
@@ -187,45 +173,49 @@ _Options used for building commands (`apktool b folder {options}`)_
 
 - Sets the folder framework files are stored/read from.
 
-```
---use-aapt1
-```
+### Clean Frameworks Options
 
-- Use `aapt` instead of `aapt2`.
-  - `aapt2` is used by default in Apktool v2.9.0 and above.
+_Options used for empty-framework-dir commands (`apktool cf|clean-frameworks {options}`)_
 
 ```
---use-aapt2
+-a, --all
 ```
 
-- Use `aapt2` instead of `aapt`.
-  - `aapt` is used by default in Apktool v2.8.2 and below.
-
-### Empty Framework Directory Options
-
-_Options used for empty-framework-dir commands (`apktool empty-framework-dir {options}`)_
-
-```
--f, --force
-```
-
-- Forces the deletion of the destination directory.
+- Lists all framework files regardless of their tag.
 
 ```
 -p, --frame-path <DIR>
 ```
 
-- Sets the folder framework files are stored/read from.
+- Sets the folder framework files are read from.
+
+```
+-t, --frame-tag <TAG>
+```
+
+- Lists framework files with the specified tag.
 
 ### List Framework Directory Options
 
-_Options used for list-frameworks commands (`apktool list-frameworks {options}`)_
+_Options used for list-frameworks commands (`apktool lf|list-frameworks {options}`)_
+
+```
+-a, --all
+```
+
+- Lists all framework files regardless of their tag.
 
 ```
 -p, --frame-path <DIR>
 ```
 
-- Sets the folder framework files are stored/read from.
+- Sets the folder framework files are read from.
+
+```
+-t, --frame-tag <TAG>
+```
+
+- Lists framework files with the specified tag.
 
 ### Common Options
 
