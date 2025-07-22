@@ -5,6 +5,13 @@ authors: [ibotpeaches, IgorEisberg]
 tags: [release]
 ---
 
+:::caution
+
+This release has moved away from parameters all being global. What this means is parameters are relevant to the command they are used with.
+
+This basically means put the parameters after the command (`b`, `d`, `if`, etc.) instead of before.
+:::
+
 - [[#3857](https://github.com/iBotPeaches/Apktool/pull/3857)] Add support for API 36 (Baklava).
 - [[#3865](https://github.com/iBotPeaches/Apktool/pull/3865)] Add `-l/--lib` to specify shared libraries. (Thanks IgorEisberg)
 - [[#3865](https://github.com/iBotPeaches/Apktool/pull/3865)] Fix support of shared libraries, parsing `pkgId` instead of guessing. (Thanks IgorEisberg)
