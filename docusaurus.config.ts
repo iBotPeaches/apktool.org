@@ -68,6 +68,7 @@ const config: Config = {
       {
         id: 'wiki',
         path: 'wiki',
+        editUrl: 'https://github.com/iBotPeaches/apktool.org/blob/main/',
         routeBasePath: 'wiki',
         sidebarPath: undefined,
       },
@@ -80,6 +81,7 @@ const config: Config = {
         docs: {
           path: 'docs',
           routeBasePath: 'docs',
+          editUrl: 'https://github.com/iBotPeaches/apktool.org/blob/main/',
           sidebarPath: undefined,
           versions: {
             current: {
@@ -90,6 +92,7 @@ const config: Config = {
         },
         blog: {
           showReadingTime: false,
+          editUrl: 'https://github.com/iBotPeaches/apktool.org/blob/main/',
           postsPerPage: 2,
           blogSidebarCount: 'ALL',
           onUntruncatedBlogPosts: 'ignore',
