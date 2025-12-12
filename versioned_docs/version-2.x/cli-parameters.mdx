@@ -102,8 +102,8 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 
 - Sets the mode used when resolving resources.
   - `remove` (default) - Removes resources that cannot be resolved.
-  - `dummy` - Adds a dummy resource for resources that cannot be resolved.
-  - `keep` - Keeps unresolved resources using `APKTOOL_MISSING_{resId}` nomenclature.
+  - `keep` - Keeps resources that cannot be resolved.
+  - `dummy` - Adds dummy resources for all missing resources using `APKTOOL_DUMMY_{resId}` nomenclature.
 
 ```
 -s, --no-src
