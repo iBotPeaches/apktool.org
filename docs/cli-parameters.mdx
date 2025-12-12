@@ -14,7 +14,7 @@ h, help
 - Dumps out all usage output.
 
 ```
-v|version
+v, version
 ```
 
 - Outputs the current software version. (Ex: 1.5.2)
@@ -94,9 +94,9 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Sets the mode used when resolving resources.
-  - `remove` (default) - Removes resources that cannot be resolved.
-  - `dummy` - Adds a dummy resource for resources that cannot be resolved.
-  - `keep` - Keeps unresolved resources using `APKTOOL_MISSING_{resId}` nomenclature.
+  - `keep` (default) - Keeps resources that cannot be resolved and injects them using the `APKTOOL_MISSING_{resId}` nomenclature when needed.
+  - `remove` - Removes resources that cannot be resolved.
+  - `dummy` - Adds dummy resources for all missing resources using `APKTOOL_DUMMY_{resId}` nomenclature.
 
 ```
 -s, --no-src
@@ -175,13 +175,15 @@ _Options used for building commands (`apktool b folder {options}`)_
 
 ### Clean Frameworks Options
 
-_Options used for empty-framework-dir commands (`apktool cf|clean-frameworks {options}`)_
+- Cleans untagged framework files by default.
+
+_Options used for clean-frameworks commands (`apktool cf|clean-frameworks {options}`)_
 
 ```
 -a, --all
 ```
 
-- Lists all framework files regardless of their tag.
+- Cleans all framework files regardless of their tag.
 
 ```
 -p, --frame-path <DIR>
@@ -193,9 +195,11 @@ _Options used for empty-framework-dir commands (`apktool cf|clean-frameworks {op
 -t, --frame-tag <TAG>
 ```
 
-- Lists framework files with the specified tag.
+- Cleans framework files with the specified tag.
 
 ### List Framework Directory Options
+
+- Lists untagged framework files by default.
 
 _Options used for list-frameworks commands (`apktool lf|list-frameworks {options}`)_
 
