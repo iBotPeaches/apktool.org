@@ -94,9 +94,9 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Sets the mode used when resolving resources.
-  - `keep` (default) - Keeps resources that cannot be resolved and injects them using the `APKTOOL_MISSING_{resId}` nomenclature when needed.
-  - `remove` - Removes resources that cannot be resolved.
-  - `dummy` - Adds dummy resources for all missing resources using `APKTOOL_DUMMY_{resId}` nomenclature.
+  - `default` - Adds dummy entries only for referenced resources that cannot be resolved.
+  - `greedy` - Adds dummy entries for all missing resources in the resource table, including unreferenced resources.
+  - `lazy` - Ignores missing resources, including referenced resources that cannot be resolved.
 
 ```
 -s, --no-src
