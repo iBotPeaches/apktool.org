@@ -54,7 +54,7 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Use to specify a dynamic library location.
-  - ie. `--lib com.google.android.test.shared_library:/tmp/shared_library.apk`
+  - E.g. `--lib com.google.android.test.shared_library:/tmp/shared_library.apk`
   - This can be called multiple times to add multiple libraries.
 
 ```
@@ -69,12 +69,6 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Prevents decoding/copying unknown asset files.
-
-```
---only-main-classes
-```
-
-- Only disassembles dex classes that are in the root of the application.
 
 ```
 -p, --frame-path <DIR>
@@ -97,6 +91,13 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
   - `default` - Adds dummy entries only for referenced resources that cannot be resolved.
   - `greedy` - Adds dummy entries for all missing resources in the resource table, including unreferenced resources.
   - `lazy` - Ignores missing resources, including referenced resources that cannot be resolved.
+
+```
+-a, --all-src
+```
+
+- Disassembles all dex files, including unknown ones.
+  - Includes dex files that aren't `classes*.dex` located at the root.
 
 ```
 -s, --no-src
