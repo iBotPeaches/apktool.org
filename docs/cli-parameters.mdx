@@ -24,10 +24,11 @@ v, version
 _Options used for decoding commands (`apktool d file.apk {options}`)_
 
 ```
---no-debug-info
+-a, --all-src
 ```
 
-- Prevents baksmali from writing out debug info. (`.local`, `.param`, `.line`, etc.).
+- Disassembles all dex files, including unknown ones.
+  - Includes dex files that aren't `classes*.dex` located at the root.
 
 ```
 -f, --force
@@ -40,6 +41,13 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Forces Apktool to decode `AndroidManifest.xml` regardless of your decoding options.
+
+```
+--ignore-raw-values
+```
+
+- Ignore raw attribute values in XML resource files.
+  - By default, raw values are respected if originally preserved.
 
 ```
 --keep-broken-res
@@ -71,6 +79,12 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 - Prevents decoding/copying unknown asset files.
 
 ```
+--no-debug-info
+```
+
+- Prevents baksmali from writing out debug info. (`.local`, `.param`, `.line`, etc.).
+
+```
 -p, --frame-path <DIR>
 ```
 
@@ -91,13 +105,6 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
   - `default` - Adds dummy entries only for referenced resources that cannot be resolved.
   - `greedy` - Adds dummy entries for all missing resources in the resource table, including unreferenced resources.
   - `lazy` - Ignores missing resources, including referenced resources that cannot be resolved.
-
-```
--a, --all-src
-```
-
-- Disassembles all dex files, including unknown ones.
-  - Includes dex files that aren't `classes*.dex` located at the root.
 
 ```
 -s, --no-src
@@ -234,14 +241,14 @@ _Options that can be used with any command_
   - Defaults to the number of processors available, with a max of 8.
 
 ```
+-q, --quiet
+```
+
+- Quiet output.
+
+```
 -v, --verbose
 ```
 
 - Verbose output.
   - Includes any log messages tagged with `FINE`.
-
-```
--q, --quiet
-```
-
-- Quiet output.
