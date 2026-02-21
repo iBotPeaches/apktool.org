@@ -73,7 +73,14 @@ With our CLI cleanup we could retire the oddly named `-efd` / `--empty-framework
 
 This allows a fine-grained control on cleaning up frameworks specific to directories or tags if you manage a complex set of framework files.
 
+#### main classes vs all classes
+In Apktool v2 we had an option called `--only-main-classes` which locked Apktool down to only disassembling the `.dex` files in the root of the project in the form of `classes[#].dex`. This was added because some applications included encrypted or malformed dex files outside the root which our greedy parser discovered and crashed attempting to parse.
+
+In v3 that option is removed and now the default, with the reversal option of `-a` / `--all-src` to include all those files. This will be used at your own risk as those dex files may not be in a form ready for disassembly.
+
 ---
+
+## Changes to output
 
 ### Configuration Changes
 
