@@ -1,7 +1,7 @@
 ---
 slug: apktool-3.0.0
 title: Apktool 3.0.0
-authors: [ibotpeaches, IgorEisberg]
+authors: [IgorEisberg, ibotpeaches]
 tags: [release]
 ---
 
@@ -15,16 +15,65 @@ This is a major release with significant breaking changes. Please read carefully
 
 ### Dropped Support
 
-- **aapt1 support removed** - Apktool now exclusively uses aapt2 for resource processing
+- **aapt1 support removed** - Apktool now uses aapt2 only.
 - **32-bit platforms no longer supported** - Only 64-bit platforms are supported
 - **`-api / --api-level` option removed** - API level is now automatically detected
 - **Short flags removed for advanced options** - Advanced options now use long-form flags only
 
-### Command Structure Changes
+### Command Changes
 
-All short commands have been changed to single characters to enable command chaining (e.g., `-vfo` for `-v -f -o`):
+| Category    | v2                           | v3                          |
+|-------------|------------------------------|-----------------------------|
+| decode      | `-api`/`--api-level`         | Removed                     |
+| decode      | `--only-main-classes`        | Removed                     |
+| decode      | `-b`/`--no-debug-info`       | `--no-debug-info`           |
+| decode      | `-k`/`--keep-broken-res`     | `--keep-broken-res`         |
+| decode      | `-m`/`--match-original`      | `--match-original`          |
+| decode      | `-resm`/`--res-resolve-mode` | `--res-resolve-mode`        |
+| decode      | `remove`, `dummy`, `keep`    | `default`, `greedy`, `lazy` |
+| decode      | —                            | `-a`/`--all-src` (new)      |
+| decode      | —                            | `--ignore-raw-values` (new) |
+| build       | `--use-aapt1`                | Removed                     |
+| build       | `-api`/`--api-level`         | Removed                     |
+| build       | `-a`/`--aapt`                | `--aapt`                    |
+| build       | `-c`/`--copy-original`       | `--copy-original`           |
+| build       | `-d`/`--debug`               | `--debuggable`              |
+| build       | `-n`/`--net-sec-conf`        | `--net-sec-conf`            |
+| build       | `-na`/`--no-apk`             | `--no-apk`                  |
+| build       | `-nc`/`--no-crunch`          | `--no-crunch`               |
+| subcommands | `efd`/`empty-framework-dir`  | `cf`/`clean-frameworks`     |
 
-- `efd` / `empty-framework-dir` → `cf` / `clean-frameworks`
+#### aapt1 removal
+With new features introduced to the `resources.arsc` we noticed aapt1 no longer receiving updates from the official Android Open Source Project. This meant it was time for us to drop it as well so we can evolve Apktool with its integration with the more robust aapt2.
+
+#### 32bit removal
+On that same token, AOSP was making it more and more difficult to build native 32 bit binaries out of the project. With Android saying goodbye to 32 bit and computers moving on to 64 bit a long time ago we could reduce our footprint with dropping 32 bit.
+
+#### `-api / --api-level` removal
+A large part of our support issues were end users mix and matching api versions to trick baksmali or smali to do a specific task. This always caused more problems than intended so now Apktool properly reads the intended api version and passes that on to baksmali automatically.
+
+#### short flag removal
+As we took a look at all CLI options Apktool offered it was a lot. It didn't seem fair that a lot of advance options were hogging single letter short flags that may rarely be executed. With dropping all short flags from advanced options and enforcing a single letter short value we introduced a little shortcut on multiple flags - allowing you to chain them together like `vfo`.
+
+#### resource modes
+Historically we had `remove`, `dummy` and `keep` which didn't truly accurately respect their purpose. Now we have:
+
+ * `default` - Adds dummy entries only for resources that cannot be resolved.
+ * `greedy` - Adds dummy entries for all missing resources at end of each package.
+ * `lazy` - Ignores resources that are missing or cannot be resolved.
+
+This also allowed us to majorly clean up the serialization of dummy resources properly resolving the item/bag type. With unifying this behavior we retired `APKTOOL_MISSING_*` for only `APKTOOL_DUMMY_*` resource names.
+
+#### clean frameworks
+With our CLI cleanup we could retire the oddly named `-efd` / `--empty-framework-dir` with a generic `cf` / `--clean-frameworks`. We also added a few flags for this execution.
+
+ * `-a` / `--all` - Include all framework files regardless of tag.
+ * `-p` / `--frame-path <dir>` - Set the path for framework files.
+ * `-t` / `--frame-tag <tag>` - Suffix the framework files with that tag.
+
+This allows a fine-grained control on cleaning up frameworks specific to directories or tags if you manage a complex set of framework files.
+
+---
 
 ### Configuration Changes
 
@@ -40,51 +89,7 @@ All short commands have been changed to single characters to enable command chai
   - `dp` used instead of `dip`
   - `match_parent` used instead of `fill_parent`
 
-## New Features
-
-- [[#3888](https://github.com/iBotPeaches/Apktool/pull/3888)] New `BinaryResourceParser`, `ResChunkPullParser` and `BinaryDataInputStream` for modern resource disassembly. (Thanks IgorEisberg)
-- [[#4077](https://github.com/iBotPeaches/Apktool/pull/4077)] New `BinaryXmlResourceParser`, `ResXmlSerializer` for improved XML processing with better handling of obfuscated APKs. (Thanks IgorEisberg)
-- [[#4082](https://github.com/iBotPeaches/Apktool/pull/4082)] Support for API 36.1 (Baklava). (Thanks iBotPeaches)
-- [[#4085](https://github.com/iBotPeaches/Apktool/pull/4085)] Support for staged aliases with full resolution of staged and finalized aliases. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Support for disassembling resources not in `res`|`r`|`R` folders. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Command chaining support - use multiple single-character commands together. (Thanks IgorEisberg)
-- [[#4072](https://github.com/iBotPeaches/Apktool/pull/4072)] New `-a` / `--all-src` common option promoted from advanced options. (Thanks IgorEisberg)
-- [[#4077](https://github.com/iBotPeaches/Apktool/pull/4077)] New `--ignore-raw-values` advanced option for preserving MCC/MNC raw values. (Thanks IgorEisberg)
-
-## Improvements
-
-- [[#3810](https://github.com/iBotPeaches/Apktool/issues/3810)] Resources now determined from source of truth (`resources.arsc`) instead of assumptions. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] All `<item>` tags now properly reference their respective resource types. (Thanks IgorEisberg)
-- [[#4001](https://github.com/iBotPeaches/Apktool/pull/4001)] Temporary files now prefixed with binary name (e.g., aapt2). (Thanks jpstotz)
-- [[#4041](https://github.com/iBotPeaches/Apktool/pull/4041)] Entry spec naming improved to handle malicious or invalid spec names. (Thanks IgorEisberg)
-- [[#4041](https://github.com/iBotPeaches/Apktool/pull/4041)] Entry injection improved to account for stripped APKs. (Thanks IgorEisberg)
-- [[#4077](https://github.com/iBotPeaches/Apktool/pull/4077)] Improved string encoding and escaping with `ResStringEncoder` for safer XML writing. (Thanks IgorEisberg)
-- [[#4085](https://github.com/iBotPeaches/Apktool/pull/4085)] Refactored multi-package ARSC support with `public-staging.xml` and `public-final.xml` separation. (Thanks IgorEisberg)
-
-## Bug Fixes
-
-- [[#3994](https://github.com/iBotPeaches/Apktool/pull/3994)] Fix odd integer encoding behavior as a string. (Thanks IgorEisberg)
-- [[#3994](https://github.com/iBotPeaches/Apktool/pull/3994)] Fix support for feature flags prefixed with exclamation mark. (Thanks IgorEisberg)
-- [[#3997](https://github.com/iBotPeaches/Apktool/issues/3997)] Fix building on headless CI systems.
-- [[#4059](https://github.com/iBotPeaches/Apktool/issues/4059)] Fix handling of styled strings that fail valid checks. (Thanks IgorEisberg)
-- [[#4084](https://github.com/iBotPeaches/Apktool/pull/4084)] Fix locale handling in ResPrimitive. (Thanks IgorEisberg)
-- [[#4086](https://github.com/iBotPeaches/Apktool/pull/4086)] Fix framework parse being performed twice. (Thanks IgorEisberg)
-
-## Dependency Updates
-
-- [[#3767](https://github.com/iBotPeaches/Apktool/issues/3767), [#3943](https://github.com/iBotPeaches/Apktool/issues/3943)] Swap to google/smali built from source due to upstream abandonment.
-- [[#3905](https://github.com/iBotPeaches/Apktool/issues/3905), [#4073](https://github.com/iBotPeaches/Apktool/pull/4073)] Fix maven pipeline for modern Sonatype publishing. (Thanks IgorEisberg)
-- [[#3990](https://github.com/iBotPeaches/Apktool/pull/3990)] Upgrade `guava` to `33.5.0-jre`.
-- [[#4025](https://github.com/iBotPeaches/Apktool/pull/4025)] Upgrade `commons-cli` to `1.11.0`.
-- [[#4021](https://github.com/iBotPeaches/Apktool/pull/4021)] Upgrade `commons-io` to `2.21.0`.
-- [[#4038](https://github.com/iBotPeaches/Apktool/pull/4038)] Upgrade `commons-text` to `1.15.0`.
-- [[#3998](https://github.com/iBotPeaches/Apktool/pull/3998), [#4026](https://github.com/iBotPeaches/Apktool/pull/4026)] Upgrade `commons-lang3` to `3.20.0`.
-- [[#4003](https://github.com/iBotPeaches/Apktool/pull/4003), [#4080](https://github.com/iBotPeaches/Apktool/pull/4080)] Upgrade `gradle/actions` to `5.0.1`.
-- [[#4011](https://github.com/iBotPeaches/Apktool/pull/4011)] Upgrade `github/codeql-action` to `v4`.
-- [[#4017](https://github.com/iBotPeaches/Apktool/pull/4017)] Upgrade `xmlunit-legacy` to `2.11.0`.
-- [[#4018](https://github.com/iBotPeaches/Apktool/pull/4018), [#4050](https://github.com/iBotPeaches/Apktool/pull/4050)] Upgrade `actions/upload-artifact` to `v6`.
-- [[#4033](https://github.com/iBotPeaches/Apktool/pull/4033)] Upgrade `actions/checkout` to `v6`.
-- [[#4031](https://github.com/iBotPeaches/Apktool/pull/4031), [#4064](https://github.com/iBotPeaches/Apktool/pull/4064)] Upgrade `r8` to `8.13.19`.
+---
 
 :::success
 
@@ -94,5 +99,3 @@ All short commands have been changed to single characters to enable command chai
 - sha256 - `TBD`
 
 :::
-
-> This is a major version upgrade with breaking changes. Before upgrading, review the "Breaking Changes" section above, especially the command structure changes and dropped support items. Update your scripts and workflows accordingly.
