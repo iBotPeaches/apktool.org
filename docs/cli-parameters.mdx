@@ -37,17 +37,17 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 - Forces the deletion of the destination directory.
 
 ```
+--force-manifest
+```
+
+- Forces Apktool to decode `AndroidManifest.xml` regardless of your decoding options.
+
+```
 --ignore-raw-values
 ```
 
 - Ignore raw attribute values in XML resource files.
-
-```
--j, --jobs <num>
-```
-
-- Sets the number of threads to use when parallel operations are available.
-  - Defaults to the number of processors available, with a max of 8.
+  - By default, raw values are respected if originally preserved.
 
 ```
 --keep-broken-res
@@ -83,18 +83,6 @@ _Options used for decoding commands (`apktool d file.apk {options}`)_
 ```
 
 - Prevents baksmali from writing out debug info. (`.local`, `.param`, `.line`, etc.).
-
-```
--o, --output <dir>
-```
-
-- Sets the name of the output directory.
-
-```
---only-manifest
-```
-
-- Only decode `AndroidManifest.xml` without resources.
 
 ```
 -p, --frame-path <DIR>
@@ -162,21 +150,6 @@ _Options used for building commands (`apktool b folder {options}`)_
   - Includes resources and sources.
 
 ```
--j <NUM>, --jobs <NUM>
-```
-
-- Sets the number of threads to use when parallel operations are available.
-  - Defaults to the number of processors available, with a max of 8.
-
-```
--l, --lib <package>:<location>
-```
-
-- Use to specify a dynamic library location.
-  - E.g. `--lib com.google.android.test.shared_library:/tmp/shared_library.apk`
-  - This can be called multiple times to add multiple libraries.
-
-```
 --net-sec-conf
 ```
 
@@ -189,7 +162,7 @@ _Options used for building commands (`apktool b folder {options}`)_
 - Disables repacking of the built files into a new apk.
 
 ```
---no-crunch
+---no-crunch
 ```
 
 - Disables crunching resource files during build.
@@ -207,22 +180,6 @@ _Options used for building commands (`apktool b folder {options}`)_
 ```
 
 - Sets the folder framework files are stored/read from.
-
-### Install Framework Options
-
-_Options used for install-framework commands (`apktool if|install-framework {options}`)_
-
-```
--p, --frame-path <DIR>
-```
-
-- Sets the folder framework files are stored/read from.
-
-```
--t, --frame-tag <TAG>
-```
-
-- Uses framework files tagged by `TAG`.
 
 ### Clean Frameworks Options
 
@@ -248,7 +205,7 @@ _Options used for clean-frameworks commands (`apktool cf|clean-frameworks {optio
 
 - Cleans framework files with the specified tag.
 
-### List Frameworks Options
+### List Framework Directory Options
 
 - Lists untagged framework files by default.
 
@@ -277,14 +234,21 @@ _Options used for list-frameworks commands (`apktool lf|list-frameworks {options
 _Options that can be used with any command_
 
 ```
--v, --verbose
+-j <NUM>, --jobs <NUM>
 ```
 
-- Verbose output.
-  - Includes any log messages tagged with `FINE`.
+- Sets the number of threads to use when parallel operations are available.
+  - Defaults to the number of processors available, with a max of 8.
 
 ```
 -q, --quiet
 ```
 
 - Quiet output.
+
+```
+-v, --verbose
+```
+
+- Verbose output.
+  - Includes any log messages tagged with `FINE`.
