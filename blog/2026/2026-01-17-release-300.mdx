@@ -22,40 +22,40 @@ This is a major release with significant breaking changes. Please read carefully
 
 ### Command Changes
 
-| Category    | v2                           | v3                          |
-|-------------|------------------------------|-----------------------------|
-| decode      | `-api`/`--api-level`         | Removed                     |
-| decode      | `--only-main-classes`        | Removed                     |
-| decode      | `-b`/`--no-debug-info`       | `--no-debug-info`           |
-| decode      | `-k`/`--keep-broken-res`     | `--keep-broken-res`         |
-| decode      | `-m`/`--match-original`      | `--match-original`          |
-| decode      | `-resm`/`--res-resolve-mode` | `--res-resolve-mode`        |
-| decode      | `remove`, `dummy`, `keep`    | `default`, `greedy`, `lazy` |
-| decode      | —                            | `-a`/`--all-src` (new)      |
-| decode      | —                            | `--ignore-raw-values` (new) |
-| build       | `--use-aapt1`                | Removed                     |
-| build       | `-api`/`--api-level`         | Removed                     |
-| build       | `-a`/`--aapt`                | `--aapt`                    |
-| build       | `-c`/`--copy-original`       | `--copy-original`           |
-| build       | `-d`/`--debug`               | `--debuggable`              |
-| build       | `-n`/`--net-sec-conf`        | `--net-sec-conf`            |
-| build       | `-na`/`--no-apk`             | `--no-apk`                  |
-| build       | `-nc`/`--no-crunch`          | `--no-crunch`               |
-| subcommands | `efd`/`empty-framework-dir`  | `cf`/`clean-frameworks`     |
+| Category | v2                           | v3                          |
+|----------|------------------------------|-----------------------------|
+| decode   | `-api`/`--api-level`         | Removed                     |
+| decode   | `--only-main-classes`        | Removed                     |
+| decode   | `-b`/`--no-debug-info`       | `--no-debug-info`           |
+| decode   | `-k`/`--keep-broken-res`     | `--keep-broken-res`         |
+| decode   | `-m`/`--match-original`      | `--match-original`          |
+| decode   | `-resm`/`--res-resolve-mode` | `--res-resolve-mode`        |
+| decode   | `remove`, `dummy`, `keep`    | `default`, `greedy`, `lazy` |
+| decode   | —                            | `-a`/`--all-src` (new)      |
+| decode   | —                            | `--ignore-raw-values` (new) |
+| build    | `--use-aapt1`                | Removed                     |
+| build    | `-api`/`--api-level`         | Removed                     |
+| build    | `-a`/`--aapt`                | `--aapt`                    |
+| build    | `-c`/`--copy-original`       | `--copy-original`           |
+| build    | `-d`/`--debug`               | `--debuggable`              |
+| build    | `-n`/`--net-sec-conf`        | `--net-sec-conf`            |
+| build    | `-na`/`--no-apk`             | `--no-apk`                  |
+| build    | `-nc`/`--no-crunch`          | `--no-crunch`               |
+| other    | `efd`/`empty-framework-dir`  | `cf`/`clean-frameworks`     |
 
-#### aapt1 removal
+#### aapt1 Removal
 With new features introduced to the `resources.arsc` we noticed aapt1 no longer receiving updates from the official Android Open Source Project. This meant it was time for us to drop it as well so we can evolve Apktool with its integration with the more robust aapt2.
 
-#### 32bit removal
+#### 32-bit Removal
 On that same token, AOSP was making it more and more difficult to build native 32 bit binaries out of the project. With Android saying goodbye to 32 bit and computers moving on to 64 bit a long time ago we could reduce our footprint with dropping 32 bit.
 
-#### `-api / --api-level` removal
+#### `-api / --api-level` Removal
 A large part of our support issues were end users mix and matching api versions to trick baksmali or smali to do a specific task. This always caused more problems than intended so now Apktool properly reads the intended api version and passes that on to baksmali automatically.
 
-#### short flag removal
+#### Short Flag Removal
 As we took a look at all CLI options Apktool offered it was a lot. It didn't seem fair that a lot of advance options were hogging single letter short flags that may rarely be executed. With dropping all short flags from advanced options and enforcing a single letter short value we introduced a little shortcut on multiple flags - allowing you to chain them together like `vfo`.
 
-#### resource modes
+#### Resource Modes
 Historically we had `remove`, `dummy` and `keep` which didn't truly accurately respect their purpose. Now we have:
 
  * `default` - Adds dummy entries only for resources that cannot be resolved.
@@ -64,7 +64,7 @@ Historically we had `remove`, `dummy` and `keep` which didn't truly accurately r
 
 This also allowed us to majorly clean up the serialization of dummy resources properly resolving the item/bag type. With unifying this behavior we retired `APKTOOL_MISSING_*` for only `APKTOOL_DUMMY_*` resource names.
 
-#### clean frameworks
+#### Clean Frameworks
 With our CLI cleanup we could retire the oddly named `-efd` / `--empty-framework-dir` with a generic `cf` / `--clean-frameworks`. We also added a few flags for this execution.
 
  * `-a` / `--all` - Include all framework files regardless of tag.
@@ -73,7 +73,7 @@ With our CLI cleanup we could retire the oddly named `-efd` / `--empty-framework
 
 This allows a fine-grained control on cleaning up frameworks specific to directories or tags if you manage a complex set of framework files.
 
-#### main classes vs all classes
+#### Main Classes vs All Classes
 In Apktool v2 we had an option called `--only-main-classes` which locked Apktool down to only disassembling the `.dex` files in the root of the project in the form of `classes[#].dex`. This was added because some applications included encrypted or malformed dex files outside the root which our greedy parser discovered and crashed attempting to parse.
 
 In v3 that option is removed and now the default, with the reversal option of `-a` / `--all-src` to include all those files. This will be used at your own risk as those dex files may not be in a form ready for disassembly.
@@ -82,14 +82,14 @@ In v3 that option is removed and now the default, with the reversal option of `-
 
 ## Changes to output
 
-### Configuration Changes
+### `apktool.yml` Changes
 
-- `packageInfo` renamed to `resourcesInfo` in `apktool.yml` - now represents all transformation options
-- Default resolve mode changed to `KEEP` (called `DEFAULT` in v3) instead of `REMOVE`
-- Resolve modes renamed to `default`, `greedy`, and `lazy` for improved serialization
+- `packageInfo` renamed to `resourcesInfo`.
+- `forcedPackageId` renamed to `packageId`.
 
 ### Output Format Changes
 
+- Resource types may be properly aligned (ie `<dimen name="foo">` instead of `<item type="dimen" name="foo">`)
 - Hex integer values now use compact form (`0x20` instead of `0x00000020`)
 - Color values now represent the format from the original APK
 - Modern Android standards adopted:
