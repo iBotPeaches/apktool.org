@@ -82,13 +82,19 @@ const config: Config = {
           path: 'docs',
           routeBasePath: 'docs',
           editUrl: 'https://github.com/iBotPeaches/apktool.org/blob/main/',
-          sidebarPath: undefined,
+          sidebarPath: './sidebars.ts',
           versions: {
             current: {
               label: '3.x',
-              path: '3.x',
+              banner: 'none',
             },
+            '2.x': {
+              label: '2.x',
+              path: '2.x',
+              banner: 'unmaintained',
+            }
           },
+          lastVersion: 'current',
         },
         blog: {
           showReadingTime: false,
@@ -153,11 +159,11 @@ const config: Config = {
             items: [
               {
                 label: 'v3.x Documentation',
-                to: 'docs/3.x/cli-parameters',
+                to: '/docs/cli-parameters',
               },
               {
                 label: 'v2.x Documentation',
-                to: 'docs/cli-parameters',
+                to: '/docs/2.x/cli-parameters',
               },
             ],
           },
