@@ -8,40 +8,4 @@ The changelog of the upcoming release, subject to change prior to finalization.
 
 :::
 
-- [[#3820](https://github.com/iBotPeaches/Apktool/issues/3820)] Drop support for aapt1. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Drop support for 32-bit platforms. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Drop short flags for any advanced options. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Drop `-api / --api-level` option for automatic detection. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Support disassembling resources not in `res`|`r`|`R` folders. (Thanks IgorEisberg)
-- [[#3888](https://github.com/iBotPeaches/Apktool/pull/3888)] Support new `BinaryResourceParser`, `ResChunkPullParser` and `BinaryDataInputStream` for modern disassembly for resources. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Change all short commands to a single character to enable multiple commands like `-vfo` for `-v -f -o`. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Change `efd|empty-framework-dir` to `cf|clean-frameworks`. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Change `packageInfo` to `resourcesInfo` in `apktool.yml` representing all transformation options. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Change hex integer values to preferred compact form. (`0x20` instead of `0x00000020`) (Thanks IgorEisberg)
-- [[#4001](https://github.com/iBotPeaches/Apktool/pull/4001)] Change temporary files to be prefixed with binary name (ie aapt2). (Thanks jpstotz)
-- [[#4041](https://github.com/iBotPeaches/Apktool/pull/4041)] Change default resolve mode to `KEEP` (`DEFAULT` in v3) instead of `REMOVE`. (Thanks IgorEisberg)
-- [[#4044](https://github.com/iBotPeaches/Apktool/pull/4044)] Change resolve modes to `default`, `greedy` and `lazy` to improve serialization. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Fix all `<item>` tags to properly reference their respective resource types. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Fix usage of `dp` instead of `dip` as a more modern development standard. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Fix usage of `match_parent` instead of `fill_parent` as a more modern development standard. (Thanks IgorEisberg)
-- [[#3885](https://github.com/iBotPeaches/Apktool/pull/3885)] Fix color values to represent the format they were in the original apk. (Thanks IgorEisberg)
-- [[#3994](https://github.com/iBotPeaches/Apktool/pull/3994)] Fix odd integer encoding behavior as a string. (Thanks IgorEisberg)
-- [[#3994](https://github.com/iBotPeaches/Apktool/pull/3994)] Fix support for feature flags prefixed with exclamation mark. (Thanks IgorEisberg)
-- [[#3997](https://github.com/iBotPeaches/Apktool/issues/3997)] Fix building on headless CI systems.
-- [[#4041](https://github.com/iBotPeaches/Apktool/pull/4041)] Fix entry spec naming to account for malicious or invalid spec names. (Thanks IgorEisberg)
-- [[#4041](https://github.com/iBotPeaches/Apktool/pull/4041)] Fix injection of entries to account for stripped apks. (Thanks IgorEisberg)
-- [[#4059](https://github.com/iBotPeaches/Apktool/issues/4059)] Fix handling of styled strings that fail valid checks. (Thanks IgorEisberg)
-- [[#3767](https://github.com/iBotPeaches/Apktool/issues/3767), [#3943](https://github.com/iBotPeaches/Apktool/issues/3943)] Swap to google/smali built from source due to upstream abandonment.
-- [[#3810](https://github.com/iBotPeaches/Apktool/issues/3810)] Fix assumption of resources and move to source of truth of `resources.arsc`. (Thanks IgorEisberg)
-- [[#3905](https://github.com/iBotPeaches/Apktool/issues/3905)] Fix maven pipeline for modern Sonatype publishing.
-- [[#3990](https://github.com/iBotPeaches/Apktool/pull/3990)] Upgrade `guava` to `33.5.0-jre`.
-- [[#4025](https://github.com/iBotPeaches/Apktool/pull/4025)] Upgrade `commons-cli` to `1.11.0`.
-- [[#4021](https://github.com/iBotPeaches/Apktool/pull/4021)] Upgrade `commons-io` to `2.21.0`.
-- [[#4038](https://github.com/iBotPeaches/Apktool/pull/4038)] Upgrade `commons-text` to `1.15.0`.
-- [[#3998](https://github.com/iBotPeaches/Apktool/pull/3998), [#4026](https://github.com/iBotPeaches/Apktool/pull/4026)] Upgrade `commons-lang3` to `3.20.0`.
-- [[#4003](https://github.com/iBotPeaches/Apktool/pull/4003), [#4080](https://github.com/iBotPeaches/Apktool/pull/4080)] Upgrade `gradle/actions` to `5.0.1`.
-- [[#4011](https://github.com/iBotPeaches/Apktool/pull/4011)] Upgrade `github/codeql-action` to `v4`.
-- [[#4017](https://github.com/iBotPeaches/Apktool/pull/4017)] Upgrade `xmlunit-legacy` to `2.11.0`.
-- [[#4018](https://github.com/iBotPeaches/Apktool/pull/4018), [#4050](https://github.com/iBotPeaches/Apktool/pull/4050)] Upgrade `actions/upload-artifact` to `v6`.
-- [[#4033](https://github.com/iBotPeaches/Apktool/pull/4033)] Upgrade `actions/checkout` to `v6`.
-- [[#4031](https://github.com/iBotPeaches/Apktool/pull/4031), [#4064](https://github.com/iBotPeaches/Apktool/pull/4064)] Upgrade `r8` to `8.13.19`.
+_It's lonely in here..._
