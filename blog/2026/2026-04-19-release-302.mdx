@@ -1,0 +1,54 @@
+---
+slug: apktool-3.0.2
+title: Apktool 3.0.2
+authors: [ibotpeaches]
+tags: [release]
+---
+
+A patch release to the major 3.0.0 release, fixing a re-introduced security vulnerability and improving performance of the disassembly process.
+
+### CVE-2026-39973
+Historically Apktool has had a few [vulnerabilities](https://github.com/iBotPeaches/Apktool/security/advisories?state=published) when it comes to trusting the file contents of an application during disassembly. Clever attacks leveraged this abuse to write arbitrary files. In Version 2 we cleaned the path resulting in a filepath that was more than likely invalid like the original resource name. In Version 3 we now validate the names according to the same rules as Android and if a violation occurs it becomes a generic `invalid` resource name. Thanks to [caveeroo](https://github.com/caveeroo) for responsible disclosure and [IgorEisberg](https://github.com/IgorEisberg) for the fix.
+
+### Performance Improvements
+
+With any major release our focus was revamping the internals, dropping aapt1 and general cleanup. With v3 out in the wild we got a lot of feedback of performance improvements we could make. So with contributors help we made improvements to buffering and lookups which when tested with Ingress 3.6.1 showed a ~19% improvement in time.
+
+```
+  ┌─────────┬───────┬───────┬───────┬───────┬────────┐
+  │ Apktool │ Run 1 │ Run 2 │ Run 3 │ Run 4 │  Avg   │
+  ├─────────┼───────┼───────┼───────┼───────┼────────┤
+  │ 3.0.1   │ 9.7s  │ 10.2s │ 11.0s │ 11.8s │ ~10.7s │
+  ├─────────┼───────┼───────┼───────┼───────┼────────┤
+  │ 3.0.2   │ 7.9s  │ 7.7s  │ 8.9s  │ 10.2s │ ~8.7s  │
+  └─────────┴───────┴───────┴───────┴───────┴────────┘
+```
+
+Your mileage may vary depending on the amount of files and dex files in the application. Ingress was a good large game with a solid amount of files to use as a test subject.
+
+### Changelog
+
+- [[#4113](https://github.com/iBotPeaches/Apktool/pull/4113)] ([CVE-2026-39973](https://github.com/iBotPeaches/Apktool/security/advisories/GHSA-m8mh-x359-vm8m)) - Validate type names to prevent arbitrary file writes. (Thanks IgorEisberg)
+- [[#4097](https://github.com/iBotPeaches/Apktool/pull/4097)] Fix validation format of incompatible item formats. (Thanks IgorEisberg)
+- [[#4128](https://github.com/iBotPeaches/Apktool/pull/4128)] Add loading of base/config APK as a library for split decoding. (Thanks IgorEisberg)
+- [[#4106](https://github.com/iBotPeaches/Apktool/pull/4106)] Add ability to return `ApkInfo` after decode. (Thanks amartinz)
+- [[#4120](https://github.com/iBotPeaches/Apktool/pull/4120)] Rename output jar with underscore to match helper scripts. (Thanks Copilot)
+- [[#4115](https://github.com/iBotPeaches/Apktool/pull/4115)] Improve performance of `resources.arsc` disassembly with buffered stream. (Thanks X1nto)
+- [[#4116](https://github.com/iBotPeaches/Apktool/pull/4116)] Improve performance of file disassembly with buffered streams. (Thanks IgorEisberg)
+- [[#4124](https://github.com/iBotPeaches/Apktool/pull/4124)] Improve performance of lookups in ResPackage behavior. (Thanks X1nto & IgorEisberg)
+- [[#4117](https://github.com/iBotPeaches/Apktool/pull/4117)] Internalize buffering to standardize flush behavior and improve performance. (Thanks IgorEisberg)
+- [[#4119](https://github.com/iBotPeaches/Apktool/pull/4119)] Upgrade internal aapt2 binaries to lessen restriction on Meta resource encoding.
+- [[#4100](https://github.com/iBotPeaches/Apktool/pull/4100)] Upgrade `upload-artifact` to `v7`.
+- [[#4101](https://github.com/iBotPeaches/Apktool/pull/4101), [#4114](https://github.com/iBotPeaches/Apktool/pull/4114)] Upgrade `gradle/actions` to `6.1.0`.
+- [[#4109](https://github.com/iBotPeaches/Apktool/pull/4109)] Upgrade `r8` to `9.1.31`.
+
+
+:::success
+
+[Download now at Bitbucket](https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_3.0.2.jar), [Maven](https://mvnrepository.com/artifact/org.apktool/apktool-lib)
+
+- md5 - `ef08ad92d940f156df6cbe38bf33bbd8`
+- sha256 - `eee4669a704a14e0623407e6701b0b91887e61e1e4049cb7a82833e14ae8b5fd`
+
+:::
+
