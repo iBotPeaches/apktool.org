@@ -10,10 +10,13 @@ const config: Config = {
   baseUrl: '/',
   projectName: 'Apktool',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn'
+    },
+  },
   future: {
     v4: true,
-    experimental_faster: true,
   },
   i18n: {
     defaultLocale: 'en',
