@@ -143,8 +143,8 @@ const config: Config = {
             position: 'right',
           },
           {
-            href: 'https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_3.0.2.jar',
-            label: 'Download 3.0.2',
+            href: 'https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_3.0.3.jar',
+            label: 'Download 3.0.3',
             position: 'right',
           },
           {
